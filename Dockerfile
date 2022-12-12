@@ -2,9 +2,9 @@
 FROM node:alpine as build_stage
 WORKDIR /reactjs
 COPY package.json package.json
-RUN npm install
+RUN yarn install
 COPY . .
-RUN npm build
+RUN yarn build
 
 #Deploying
 FROM nginx:alpine as deploy_stage
