@@ -2,9 +2,9 @@
 FROM node:alpine as build_stage
 WORKDIR /reactjs
 COPY package.json package.json
-RUN npm cache clean && npm install
+RUN npm install
 COPY . .
-RUN npm build
+RUN npm run build
 
 #Deploying
 FROM nginx:alpine as deploy_stage
