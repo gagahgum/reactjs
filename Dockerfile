@@ -1,7 +1,6 @@
 #Building
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf *
+WORKDIR /reactjs
 COPY /reactjs/build .
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
