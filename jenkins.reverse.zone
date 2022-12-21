@@ -1,0 +1,9 @@
+$TTL 1D
+@	IN	SOA     jenkins.beni.com.   root.jenkins.beni.com. (
+                                0	; serial
+                                1D	; refresh
+                                1H	; retry
+                                1W	; expire
+                                3H )    ; minimum
+        IN	NS	jenkins.beni.com.
+6	IN	PTR     jenkins.beni.com.
