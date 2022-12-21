@@ -1,0 +1,75 @@
+node ('master'){
+    
+    //environment {
+    //    DOCKERHUB_CREDENTIALS = credentials('akundockerhub')
+    //}
+    
+    stage('Clone Code'){
+        sh """
+        
+        git clone https://github.com/gagahgum/reactjs -b beni-bootcamp
+        
+        cd reactjs && ls -lah
+        """
+    }
+    
+    stage('Build Code'){
+        sh """
+        
+        cd reactjs
+        
+        npm install
+        
+        npm run build
+        
+        """
+    }
+    
+    stage('Build Docker Image'){
+        sh """
+        
+        cd reactjs
+        
+        sudo docker build -t benikuswara/reactjs:beni-v1 .
+        
+        """
+        //dockerImage = docker.build("benikuswara/reactjs:beni-v1")
+    }
+    
+    stage('Push Image'){
+        
+        sh """
+        
+        sudo cat /home/beni/password.txt | sudo docker login -u benikuswara --password-stdin
+        
+        sudo docker push benikuswara/reactjs:beni-v1
+
+        """
+        
+        
+        //withDockerRegistry([ credentialsId: "akundockerhub", url: "" ]){
+        //    dockerImage.push()
+        //}
+    }
+    
+    stage('Deploy to Server'){
+        sh """
+        
+        sudo su
+        
+        ssh beni@192.168.0.5
+        
+        docker stop reactjs
+        
+        docker rm reactjs
+        
+        docker image rm benikuswara/reactjs:beni-v1
+        
+        docker pull benikuswara/reactjs:beni-v1
+        
+        docker run --name reactjs -dp 80:80 benikuswara/reactjs:beni-v1
+        
+        """
+    }
+
+}
