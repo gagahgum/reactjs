@@ -1,0 +1,11 @@
+zone "beni.com" IN {
+        type master;
+        file "jenkins.forward.zone";
+        allow-update { none; };
+};
+
+zone "0.168.192.in-addr.arpa" IN {
+        type master;
+        file "jenkins.reverse.zone";
+        allow-update { none; };
+};
